@@ -1,0 +1,19 @@
+<div class="container">
+<h1 class="my-3>">Make a new order</h1>
+<div class="my-3>">
+    <label for="" class="form-label">Select Category</label>
+    <select class="form-control" name="cat" id="CatSel" [(ngModel)]="selectedCategoryId" >
+        <!-- <option>Select Category</option> -->
+        <option *ngFor="let item of categoryList" [value]="item.id">{{item.name}}</option>
+    </select>
+</div>
+<hr>
+<h1 class="bg-primary text-white">Selected Category Id: {{selectedCategoryId}}</h1>
+<div class="bg-light">
+    <!-- selectedCategoryId: the first is the child's .. the second is the parent's -->
+    <!-- onTotalPriceChange: the first is the child's .. the second is the parent's -->
+    <app-products [selectedCategoryId]="selectedCategoryId" (onTotalPriceChange)="updateOrderTotalPrice($event)"></app-products>
+</div>
+<hr>
+<h1 class="my-5">Total Price is: {{orderTotalPrice | currency}}</h1>
+</div>

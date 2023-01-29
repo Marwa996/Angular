@@ -1,0 +1,38 @@
+
+<div class="container mt-5"> 
+    <!-- <div class="card col-4" *ngFor="let item of products">
+        <img [src]="item.imgURL" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{item.name}}</h5>
+          <p class="card-text">{{item.price}} $</p>
+        <a routerLink="/products/{{item.id}}" class="btn btn-primary">see details</a> -->
+          <!-- <a [routerLink]="['/products/',item.id]" class="btn btn-primary">see details</a>
+        </div>
+      </div> -->
+
+      <table class="table">
+        <thead class="bg-dark text-white">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Img</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col" class="text-center">#</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let prd of productsListOfCategory; let i=index" [ngClass]="{'bg-warning':prd.quantity==1,'bg-danger':prd.quantity==0}">
+            <!-- <td>{{prd.id}}</td> -->
+            <!-- cause the id isn't ordered, I used the index instead -->
+            <td>{{i+1}}</td>
+            <td>{{prd.name}}</td>
+            <td><img appLightBox [src]='prd.imgURL'></td>
+            <td>{{prd.quantity}}</td>
+            <td>{{prd.price | currency}}</td>
+            <!-- <td><button class="btn btn-primary" (click)="buy(prd.id)">Buy</button></td> -->
+            <td><button class="btn btn-success" (click)="updateOrderTotalPrice(prd.price,prd.id)">Add to Cart</button></td>
+          </tr>
+        </tbody>
+      </table>
+</div>
