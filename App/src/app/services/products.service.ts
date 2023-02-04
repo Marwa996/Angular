@@ -40,7 +40,7 @@ private products: IProduct[]
           name: "Samsung Tab",
           price: 100,
           quantity: 10,
-          imgURL: "https://picsum.photos/200",
+          imgURL: "",
           categoryId:2
       },
       {

@@ -1,0 +1,11 @@
+<!-- we want the navbar to be available only in the main pages, so we created 
+this component that have the navbar and child routes of components that 
+should also contain the navbar, and in the app component there will be the 
+components that don't have the navbar -->
+
+<!-- in the app-routing module, we defined the children paths of this route
+so that when any route is clicked it will have the navbar from this route,
+others from the app won't -->
+
+<app-navbar></app-navbar>
+<router-outlet></router-outlet>

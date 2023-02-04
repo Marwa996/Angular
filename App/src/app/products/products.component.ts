@@ -3,6 +3,7 @@ import { EventEmitter, OnChanges, Output, SimpleChanges } from '@angular/core';
 // import { ICategory } from './../sharedClasses/test';
 import { Component, Input, OnInit } from '@angular/core';
 import { IProduct, ICategory } from '../sharedClasses/test';
+import { Router } from '@angular/router';
 
 
 //class decorator that allow us to tell angular that this is a component
@@ -12,12 +13,12 @@ import { IProduct, ICategory } from '../sharedClasses/test';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnChanges{
-  
   // products: IProduct[] = [];
 
   //the viewed list after selecting category
   productsListOfCategory: IProduct[]=[];
-  
+  today:Date = new Date();
+  date:string;
   //received from parent Shopping cart
   @Input() selectedCategoryId:number=0
   
@@ -27,104 +28,18 @@ export class ProductsComponent implements OnChanges{
   //creating event to change the output
   //event emitter is is used to add a callback function that's going to be executed when the event is triggered
   //output decorator so that the parent(cart) can see the event
-  @Output() onTotalPriceChange: EventEmitter<number>;
- 
+  @Output() onTotalPriceChange: EventEmitter<{price:number,date:string}>;
+  // @Output() productDate: EventEmitter<number>;
   //to inject the service, we call it in the constructor
-  constructor(private productsService:ProductsService) { 
+  constructor(private productsService:ProductsService,
+              private router:Router) { 
     
-    this.onTotalPriceChange=new EventEmitter<number>()
-  
+    this.onTotalPriceChange=new EventEmitter<{price:number,date:string}>()
+    // this.productDate=new EventEmitter<number>();
+    this.date="";
+
   //////////products initialized in products.service
   
-  //   this.products= [
-  //     {
-  //         id: 1,
-  //         name: "Lenvo thinpad X230",
-  //         price: 100,
-  //         quantity: 10,
-  //         imgURL: "https://picsum.photos/200",
-  //         categoryId:1
-  //     },
-  //     {
-  //         id: 2,
-  //         name: "Dell",
-  //         price: 200,
-  //         quantity: 20,
-  //         imgURL: "https://picsum.photos/200",
-  //         categoryId:1
-  //     },
-  //     {
-  //         id: 3,
-  //         name: "Lenovo Tab",
-  //         price: 100,
-  //         quantity: 10,
-  //         imgURL: "https://picsum.photos/200",
-  //         categoryId:2
-  //     },
-  //     {
-  //         id: 4,
-  //         name: "Samsung Tab",
-  //         price: 100,
-  //         quantity: 10,
-  //         imgURL: "https://picsum.photos/200",
-  //         categoryId:2
-  //     },
-  //     {
-  //         id: 5,
-  //         name: "Samsung note 10",
-  //         price: 100,
-  //         quantity: 10,
-  //         imgURL: "https://picsum.photos/200",
-  //         categoryId:3
-  //     },
-  //     {
-  //         id: 6,
-  //         name: "Samsung S10",
-  //         price: 100,
-  //         quantity: 10,
-  //         imgURL: "https://picsum.photos/200",
-  //         categoryId:3
-  //     },
-  //     {
-  //         id: 7,
-  //         name: "tochiba Utlra",
-  //         price: 60000,
-  //         quantity: 14,
-  //         imgURL: "https://picsum.photos/200",
-  //         categoryId:1
-  //     },
-  //     {
-  //         id: 8,
-  //         name: "Apple Utlra",
-  //         price: 7800060,
-  //         quantity: 6,
-  //         imgURL: "https://picsum.photos/200",
-  //         categoryId:1
-  //     },
-  //     {
-  //         id: 9,
-  //         name: "test Utlra",
-  //         price: 7800060,
-  //         quantity: 3,
-  //         imgURL: "https://picsum.photos/200",
-  //         categoryId:2
-  //     },
-  //     {
-  //         id: 10,
-  //         name: "jhgfjxz",
-  //         imgURL: "https://picsum.photos/200",
-  //         quantity: 33,
-  //         price: 44444444, categoryId:3
-  //     },
-  //     {
-  //         name: "fsdjhfgsdjhkgfsh",
-  //         price: 7800060,
-  //         quantity: 3,
-  //         imgURL: "https://picsum.photos/200",
-  //         categoryId:1,
-  //         id: 11
-  //     }
-  // ]
   }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.selectedCategoryId)
@@ -143,17 +58,27 @@ export class ProductsComponent implements OnChanges{
 // getProductsByCatergoy(catId:number){
 //   this.products= this.products.filter(p=>p.categoryId==catId)
 // }
+
 updateOrderTotalPrice(price:number,id:number){
   this.totalPrice+=price;
+  this.date=this.today.toLocaleString();
+  console.log(this.date);
   //emit event
   //when the totalPrice changes, fire the event
-  this.onTotalPriceChange.emit(this.totalPrice)
 
+  this.onTotalPriceChange.emit({price:this.totalPrice,date:this.date})
+  // this.productDate.emit(this.date);
   //decreasing the quantity
   let x = this.productsService.getProductByID(id)
   if(x?.quantity){
     x.quantity--;
   }
 }
+
+//opening product details component
+openProductDetails(pid:number){
+  this.router.navigate(['/products',pid])
+}
+
 }
 

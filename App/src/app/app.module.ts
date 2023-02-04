@@ -13,6 +13,11 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { LightBoxDirective } from './Directives/light-box.directive';
 import { HomeComponent } from './home/home.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { StyleDirective } from './Directives/style.directive';
+import { FilterPipe } from './Pipes/default.pipe';
+import { SouqComponent } from './souq/souq.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,12 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     ShoppingCartComponent,
     LightBoxDirective,
     HomeComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    NavbarComponent,
+    MainLayoutComponent,
+    StyleDirective,
+    FilterPipe,
+    SouqComponent,
   ],
   imports: [
     BrowserModule,

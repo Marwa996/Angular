@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IProduct, ICategory } from '../sharedClasses/test';
 
 @Component({
@@ -10,8 +10,9 @@ export class ShoppingCartComponent {
   categoryList:ICategory[]=[];
   //define variables to be read in the nested component 
   //we'll use two-way-binding with them [(ngModel)]="selectedCategoryId"
-  selectedCategoryId:number=0;
-  orderTotalPrice:number=0
+  selectedCategoryId:number;
+  orderTotalPrice:number;
+  date:string;
   constructor(){
     this.categoryList = [
       {
@@ -35,10 +36,20 @@ export class ShoppingCartComponent {
         description:"this is Mobiles description"
       },
     ]
+
+    this.selectedCategoryId=0;
+    this.orderTotalPrice=0;
+    this.date="";
   }
 
-  updateOrderTotalPrice(totalPrice:number){
+  updateOrderTotalPrice(totalPrice:any,date:any){
     //total price that comes from the event
-    this.orderTotalPrice=totalPrice
+    this.orderTotalPrice=totalPrice;
+    this.date=date;
+    console.log(date);
   }
+
+  // productDate(date:number){
+  //   this.date=date;
+  // }
 }

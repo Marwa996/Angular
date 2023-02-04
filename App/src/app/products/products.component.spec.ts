@@ -10,6 +10,9 @@ import { IProduct, ICategory } from '../sharedClasses/test';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent{
+updateOrderTotalPrice(arg0: any,arg1: any) {
+throw new Error('Method not implemented.');
+}
   categoryList:ICategory[]=[]
   products: IProduct[] = [];
   constructor() { 

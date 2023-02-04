@@ -17,19 +17,28 @@
             <th scope="col">Name</th>
             <th scope="col">Img</th>
             <th scope="col">Quantity</th>
+            <th scope="col">Details</th>
             <th scope="col">Price</th>
             <th scope="col" class="text-center">#</th>
           </tr>
         </thead>
         <tbody>
             <!-- changed the original Products list with the categorized list -->
-          <tr *ngFor="let prd of productsListOfCategory; let i=index" [ngClass]="{'bg-warning':prd.quantity==1,'bg-danger':prd.quantity==0}">
+          <tr appStyle *ngFor="let prd of productsListOfCategory; let i=index" [ngClass]="{'bg-warning':prd.quantity==1,'bg-danger':prd.quantity==0}">
             <!-- <td>{{prd.id}}</td> -->
             <!-- cause the id isn't ordered, I used the index instead -->
             <td>{{i+1}}</td>
             <td>{{prd.name}}</td>
-            <td><img appLightBox [src]='prd.imgURL'></td>
+            <!-- |default:"https://picsum.photos/200" -->
+            <td><img [src]='prd.imgURL|default:"https://picsum.photos/200"'></td>
             <td>{{prd.quantity}}</td>
+            <!-- two ways for the parameterized route: -->
+            <!-- 1 -->
+            <td><a class="btn btn-primary" role="button" [routerLink]="['/products',prd.id]">Details</a></td>
+            <!-- 2 -->
+            <!-- <td><button class="btn btn-primary" (click)="openProductDetails(prd.id)">Details</button></td> -->
+            
+            
             <td>{{prd.price | currency}}</td>
             <!-- <td><button class="btn btn-primary" (click)="buy(prd.id)">Buy</button></td> -->
             <td><button class="btn btn-success" (click)="updateOrderTotalPrice(prd.price,prd.id)">Add to Cart</button></td>

@@ -12,8 +12,9 @@
 <div class="bg-light">
     <!-- selectedCategoryId: the first is the child's .. the second is the parent's -->
     <!-- onTotalPriceChange: the first is the child's .. the second is the parent's -->
-    <app-products [selectedCategoryId]="selectedCategoryId" (onTotalPriceChange)="updateOrderTotalPrice($event)"></app-products>
+    <app-products [selectedCategoryId]="selectedCategoryId" (onTotalPriceChange)="updateOrderTotalPrice($event.price,$event.date)"></app-products>
 </div>
 <hr>
 <h1 class="my-5">Total Price is: {{orderTotalPrice | currency}}</h1>
+<h1>Purchase date: {{date}}</h1>
 </div>
