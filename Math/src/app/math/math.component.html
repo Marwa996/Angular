@@ -1,0 +1,29 @@
+
+<div class="row m-5"> 
+
+ 
+ 
+
+    <form class="col-5 text-center"> 
+
+        <label for="">  Enter your Number</label> 
+
+        <input type="number" class="form-control my-3" [value]="mycurrent" #curr> 
+
+        <label for="">  Enter your Limit</label> 
+
+         
+
+        <input  type="number" class="form-control my-3" [value]="mylimit" #limit> 
+
+        <button class="btn btn-info my-3" (click)="change(curr.value,limit.value)">Show</button> 
+
+    </form> 
+
+    <ul class="col-7 list list-group list-group-flush text-center"> 
+
+        <li class=" list-group-item" *ngFor="let item of list">{{item}}</li> 
+
+    </ul> 
+
+</div> 
